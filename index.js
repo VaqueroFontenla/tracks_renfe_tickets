@@ -53,7 +53,7 @@ async function checkPrice(page) {
     0
   ).getTime();
   let MILLISECoNDS_DAY = 24 * 60 * 60 * 1000;
-  let tomorrow = today +MILLISECoNDS_DAY;
+  let tomorrow = today + MILLISECoNDS_DAY;
 
   await page.waitForSelector("#datepicker > section");
   await page.click(`div[data-time="${tomorrow}"]`);
@@ -66,6 +66,36 @@ async function checkPrice(page) {
   await page.click(
     "#contentPage > div > div > div:nth-child(1) > div > div > div > div > div > div > rf-header > rf-header-top > div.rf-header__wrap-search.grid > rf-search > div > div.rf-search__filters.rf-search__filters--open > div.rf-search__wrapper-button > div.rf-search__button > form > rf-button"
   );
+
+  await page.waitForNavigation();
+  await page.waitForSelector(".trayectoRow");
+  let data = await page.evaluate(() => {
+    let ticketsData = [];
+    let tickets = [...document.querySelectorAll(".trayectoRow")];
+
+    tickets.forEach((ticket) => {
+      let ticketJSON = {};
+
+      try {
+        ticketJSON.departure = ticket.querySelector(
+          ".trayectoRow > td:nth-child(2) > div:nth-child(1)"
+        ).innerText;
+        ticketJSON.duration = ticket.querySelector(
+          ".trayectoRow > td:nth-child(2) > div:nth-child(2)"
+        ).innerText;
+        ticketJSON.price = ticket.querySelector(
+          ".trayectoRow > td:nth-child(5) > button > div:nth-child(2)"
+        ).innerText;
+      } catch (exception) {
+        console.log(exception);
+      }
+      console.log(ticketJSON);
+      ticketsData.push(ticketJSON);
+    });
+    return ticketsData;
+  });
+
+  console.log(data);
 }
 
 async function startTracking() {
