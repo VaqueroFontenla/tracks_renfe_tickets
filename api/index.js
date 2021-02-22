@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer");
+const fs = require('fs');
 
 const url = "https://www.renfe.com/es/es";
 
@@ -10,7 +11,7 @@ const randomWait = () => {
 };
 
 async function configureBrowser() {
-  const browser = await puppeteer.launch({ headless: false }); //Crear el navegar
+  const browser = await puppeteer.launch({ headless: true }); //Crear el navegar
   const context = await browser.createIncognitoBrowserContext();
   const page = await context.newPage(); // Instancia de la paǵina
   await page.setViewport({
@@ -106,11 +107,11 @@ async function checkPrice(page) {
         } catch (exception) {
           console.log(exception);
         }
-        console.log(ticketsData);
         ticketsData.push(ticketJSON);
       });
       return ticketsData;
     }, ticketsData);
+    //Opcional si queremos darle un toque más humano
     await page.waitForTimeout(randomWait());
     await page.focus("#fechaSeleccionada0");
     await page.keyboard.type(`${today}/${month}/${year}`, {
@@ -119,7 +120,11 @@ async function checkPrice(page) {
     await page.keyboard.press("Enter");
     counter++;
   }
-  console.log(data);
+
+  fs.writeFile('tracks-renfe-tickets.json', JSON.stringify(data), (err) => {
+    if (err) console.log(err);
+    console.log("Renfe tickets: Successfully Written to File.");
+});
 }
 
 async function startTracking() {
