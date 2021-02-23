@@ -5,13 +5,13 @@ const url = "https://www.renfe.com/es/es";
 
 // Funcion que crea un número aleatorio
 const MIN_WAIT = 1000;
-const MAX_WAIT = 000;
+const MAX_WAIT = 3000;
 const randomWait = () => {
   return Math.floor(Math.random() * (MAX_WAIT - MIN_WAIT + 1) + MIN_WAIT);
 };
 
 async function configureBrowser() {
-  const browser = await puppeteer.launch({ headless: true }); //Crear el navegar
+  const browser = await puppeteer.launch({ headless: false }); //Crear el navegar
   const context = await browser.createIncognitoBrowserContext();
   const page = await context.newPage(); // Instancia de la paǵina
   await page.setViewport({
