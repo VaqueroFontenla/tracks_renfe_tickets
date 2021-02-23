@@ -14,10 +14,15 @@ module.exports = {
         use: ["babel-loader"],
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(eot|gif|otf|png|svg|ttf|woff)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ["file-loader"],
       },
     ],
   },
+
   plugins: [htmlPlugin],
 };
