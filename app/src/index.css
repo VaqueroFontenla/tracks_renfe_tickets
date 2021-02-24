@@ -13,9 +13,10 @@
 
 :root {
   --base-font-size: 16px;
-  --theme--contrast-0: #121212;
+  --base-size: 24px;
   --theme-body-bg: #fff;
-  --theme-body-txt: #000;
+  --theme-color-primary: #000;
+  --theme-color-secondary: #555;
 }
 
 * {
@@ -26,7 +27,7 @@
 
 body {
   font-family: "Roboto";
-  color: var(--theme-body-txt);
+  color: var(--theme-color-primary);
   font-size: var(--base-font-size);
   width: 100%;
   height: 100%;

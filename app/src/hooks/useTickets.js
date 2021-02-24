@@ -12,13 +12,12 @@ export const useTickets = () => {
       setTickets(tickets);
       setLoading(false);
     } catch (error) {
-      console.log("error");
+      console.log(error);
     }
   }, []);
 
   useEffect(() => {
     fetchTickets();
   }, [fetchTickets]);
-
   return { tickets, loading };
 };

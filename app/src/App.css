@@ -1,0 +1,17 @@
+.wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 90rem) {
+  .wrapper {
+    width: 1398px;
+  }
+}
+
+.title {
+    
+}

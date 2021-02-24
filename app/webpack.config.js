@@ -1,9 +1,12 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const DayjsWebpackPlugin = require("dayjs-webpack-plugin");
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: "./src/index.html",
   filename: "./index.html",
 });
+
+const daysjsPlugin = new DayjsWebpackPlugin();
 
 module.exports = {
   module: {
@@ -23,6 +26,5 @@ module.exports = {
       },
     ],
   },
-
-  plugins: [htmlPlugin],
+  plugins: [htmlPlugin, daysjsPlugin]
 };
