@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "dayjs": "^1.10.4",
+    "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }

@@ -1,7 +1,5 @@
 import React from "react";
-import dayjs from "dayjs";
 import "./Card.css";
-import es from "dayjs/locale/es";
 
 export const Card = ({ date, duration, departure, price }) => {
   const formatDate = (date) => {
@@ -19,8 +17,8 @@ export const Card = ({ date, duration, departure, price }) => {
     <div className="card">
       <span className="date">{formatDate(date)}</span>
       <span className="price">{price}</span>
-        <span>Duración: {duration}</span>
-        <span>Hora salida: {departure}</span>
+      <span>Duración: {duration}</span>
+      <span>Hora salida: {departure}</span>
     </div>
   );
 };
