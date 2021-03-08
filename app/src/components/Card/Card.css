@@ -1,7 +1,8 @@
 .card {
   display: inline-grid;
-  row-gap: 1rem;
-  padding: 1rem;
+  row-gap: 0.5rem;
+  text-align: center;
+  padding: 1rem 2rem;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 15px;
   border-radius: 1rem;
   transition: box-shadow 0.3s ease-out 0s;
@@ -13,10 +14,15 @@
 
 .price {
   color: var(--theme-color-secondary);
+  font-size: var(--large-font-size);
   font-weight: 700;
 }
 
 .date {
+  text-transform: capitalize;
+}
+
+span {
   color: var(--theme-color-secondary);
   font-size: 0.75rem;
 }

@@ -13,6 +13,7 @@
 
 :root {
   --base-font-size: 16px;
+  --large-font-size: 20px;
   --base-size: 24px;
   --theme-body-bg: #fff;
   --theme-color-primary: #000;
