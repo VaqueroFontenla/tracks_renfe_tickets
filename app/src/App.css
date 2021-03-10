@@ -1,4 +1,7 @@
 .wrapper {
+  display: grid;
+  row-gap: var(--base-row-gap);
+
   min-height: 100vh;
   padding: 2rem;
 
@@ -8,10 +11,9 @@
 
 @media screen and (min-width: 90rem) {
   .wrapper {
-    width: 1398px;
+    max-width: 1398px;
   }
 }
 
 .title {
-    
 }

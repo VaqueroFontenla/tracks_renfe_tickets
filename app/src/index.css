@@ -15,9 +15,11 @@
   --base-font-size: 16px;
   --large-font-size: 20px;
   --base-size: 24px;
+  --cell-size: 60px;
   --theme-body-bg: #fff;
   --theme-color-primary: #000;
   --theme-color-secondary: #555;
+  --base-row-gap: 80px;
 }
 
 * {
