@@ -1,15 +1,9 @@
-const url = "src/data/tracks-renfe-tickets.json";
+const url = "http://localhost:3000/tickets";
 
-export const getTickets = () =>
-  fetch(url, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
+export const getTickets = (queryParams) =>
+  fetch(`${url}${queryParams}`)
     .then((res) => res.json())
-    .then((data) => data)
+    .then((data) => data.result)
     .catch((error) => {
       throw error;
     });

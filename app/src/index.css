@@ -19,7 +19,11 @@
   --theme-body-bg: #fff;
   --theme-color-primary: #000;
   --theme-color-secondary: #555;
+  --theme-color-highlight: #aafcb8;
   --base-row-gap: 80px;
+  --base-button-bg: #000;
+  --base-button-color: #fff;
+  --base-button-size: 100px;
 }
 
 * {

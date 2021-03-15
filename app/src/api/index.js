@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const fs = require('fs');
+const fs = require("fs");
 
 const url = "https://www.renfe.com/es/es";
 
@@ -120,17 +120,13 @@ async function checkPrice(page) {
     await page.keyboard.press("Enter");
     counter++;
   }
-
-  fs.writeFile('tracks-renfe-tickets.json', JSON.stringify(data), (err) => {
-    if (err) console.log(err);
-    console.log("Renfe tickets: Successfully Written to File.");
-});
+  return data;
 }
 
 async function startTracking() {
   const page = await configureBrowser();
-
-  await checkPrice(page);
+  const tickets = await checkPrice(page);
+  return tickets
 }
 
-startTracking();
+module.exports = { startTracking: startTracking };

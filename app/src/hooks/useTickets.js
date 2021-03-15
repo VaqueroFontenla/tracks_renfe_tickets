@@ -5,10 +5,10 @@ export const useTickets = () => {
   const [tickets, setTickets] = useState();
   const [loading, setLoading] = useState(false);
 
-  const fetchTickets = useCallback(async () => {
+  const fetchTickets = useCallback(async (queryParams) => {
     try {
       setLoading(true);
-      const tickets = await getTickets();
+      const tickets = await getTickets(queryParams)
       setTickets(tickets);
       setLoading(false);
     } catch (error) {
@@ -16,8 +16,5 @@ export const useTickets = () => {
     }
   }, []);
 
-  useEffect(() => {
-    fetchTickets();
-  }, [fetchTickets]);
-  return { tickets, loading };
+  return { tickets, loading, fetchTickets };
 };

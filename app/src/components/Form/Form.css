@@ -1,0 +1,98 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 3rem;
+  align-items: start;
+
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+legend {
+  color: var(--theme-color-secondary);
+  font-size: var(--large-font-size);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.select-wrapper select,
+.radio-wrapper input {
+  appearance: none;
+}
+
+.radio-wrapper {
+  position: relative;
+  margin-bottom: 16px;
+  padding: 5px 0 5px 48px;
+  display: block;
+}
+
+.radio-wrapper input[type="radio"] + i {
+  position: absolute;
+  border: 1px solid var(--theme-color-secondary);
+  height: var(--base-size);
+  width: var(--base-size);
+  border-radius: 100%;
+  left: 15px;
+}
+
+.radio-wrapper input[type="radio"] + i:before {
+  content: "";
+  display: block;
+  height: 14px;
+  width: 14px;
+  border-radius: 100%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: var(--theme-color-secondary);
+  transition: all 0.25s ease;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.radio-wrapper input[type="radio"]:checked + i:before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  text-transform: capitalize;
+
+  width: 100%;
+  background-color: var(--theme-body-bg);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  outline: none;
+}
+
+.select-wrapper i {
+  display: block;
+  position: absolute;
+  right: 20px;
+  top: calc(50% - 13px);
+  width: 16px;
+  height: 16px;
+  border-left: 4px solid var(--theme-color-secondary);
+  border-bottom: 4px solid var(--theme-color-secondary);
+  transform: rotate(-45deg);
+}
+
+.submit {
+  align-self: center;
+  justify-self: center;
+
+  color: var(--base-button-color);
+
+  background-color: var(--base-button-bg);
+  border-radius: 1rem;
+  border-color: var(--base-button-bg);
+  padding: 1rem;
+  width: var(--base-button-size);
+  outline: none;
+}

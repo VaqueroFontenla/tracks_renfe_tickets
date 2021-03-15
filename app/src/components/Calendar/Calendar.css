@@ -1,6 +1,9 @@
 .calendar {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 15px;
-} 
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 15px;
+
+  padding: 1rem;
+}
 
 .calendar-header {
   padding: 1rem 0;
@@ -32,8 +35,13 @@
 .day {
   height: var(--cell-size);
   padding: 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
+  border-left: 1px solid rgba(0, 0, 0, 0.16);
 
   font-weight: 700;
   text-align: end;
+}
+
+.day:nth-child(7n + 8) {
+  border-left: 0;
 }

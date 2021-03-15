@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import _ from "lodash";
 import "./Calendar.css";
 
 const findMinPrice = (tickets) => {
@@ -6,10 +7,8 @@ const findMinPrice = (tickets) => {
     .groupBy("date")
     .map((tickets, date) => {
       const minPrice = _.min(tickets.map((tickets) => tickets.price));
-      const month = new Date(date.split("/").reverse()).getMonth();
       const day = new Date(date.split("/").reverse()).getDate();
-      const year = new Date(date.split("/").reverse()).getFullYear();
-      return { year, month, day, minPrice };
+      return { day, minPrice };
     })
     .value();
 
@@ -19,19 +18,16 @@ const findMinPrice = (tickets) => {
   const years = [
     ...new Set(Array.from(new Set(minPrices.map((item) => item.year)))),
   ];
-
   return minPrices;
 };
 
-export const Calendar = ({ tickets }) => {
+export const Calendar = ({ tickets, monthIndex, actualYear }) => {
   const locale = "es";
-  const actualYear = 2021;
-  const monthIndex = 1;
-  const [dataCalendar, setDataCalendar] = useState({
-    daysOfMonth: undefined,
-    monthName: undefined,
-    startsOn: undefined,
-  });
+
+  const [monthName, setMonthName] = useState();
+
+  const [dataCalendar, setDataCalendar] = useState();
+  const [minPrices, setMinPrices] = useState();
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: "long" });
   const intlForWeeks = new Intl.DateTimeFormat(locale, { weekday: "long" });
   const weekDays = [...Array(7).keys()].map((dayIndex) =>
@@ -43,11 +39,7 @@ export const Calendar = ({ tickets }) => {
     const nextMonthIndex = (monthIndex + 1) % 12;
     const daysOfMonth = new Date(actualYear, nextMonthIndex, 0).getDate();
     const startsOn = new Date(actualYear, monthIndex, 1).getDay();
-    console.log({
-      daysOfMonth,
-      monthName,
-      startsOn,
-    });
+
     return {
       daysOfMonth,
       monthName,
@@ -55,8 +47,18 @@ export const Calendar = ({ tickets }) => {
     };
   };
 
-  useEffect(() => setDataCalendar(calendar(monthIndex)), []);
+  useEffect(() => {
+    const unionArray = (daysOfMonth, minPrices) => {
+      const newArray = Array.from([...Array(daysOfMonth).keys()], (day) => {
+        return { day };
+      });
+    };
+    unionArray(calendar(monthIndex).daysOfMonth, findMinPrice(tickets));
+    setMinPrices(findMinPrice(tickets));
+    setDataCalendar(calendar(monthIndex));
+  }, [tickets]);
 
+  useEffect(() => {});
   return (
     <>
       {dataCalendar && (
