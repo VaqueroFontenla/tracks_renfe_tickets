@@ -1,13 +1,18 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
-
+const _ = require("lodash");
 const url = "https://www.renfe.com/es/es";
 
-// Funcion que crea un número aleatorio
-const MIN_WAIT = 1000;
-const MAX_WAIT = 3000;
-const randomWait = () => {
-  return Math.floor(Math.random() * (MAX_WAIT - MIN_WAIT + 1) + MIN_WAIT);
+const findMinPrice = (tickets) => {
+  var minPrices = _(tickets)
+    .groupBy("date")
+    .map((tickets, date) => {
+      const minPrice = _.min(tickets.map((tickets) => tickets.price));
+      const day = new Date(date.split("/").reverse()).getDate();
+      return { day, minPrice };
+    })
+    .value();
+  return minPrices;
 };
 
 async function configureBrowser() {
@@ -26,15 +31,20 @@ async function configureBrowser() {
   return page;
 }
 
-async function checkPrice(page) {
-  await page.waitForTimeout(1000);
+async function checkPrice(page, journey, month) {
+  const origin = journey === "departure" ? "MADRID (TODAS)" : "VIGO (TODAS)";
+  const destination =
+    journey === "departure" ? "VIGO (TODAS)" : "MADRID (TODAS)";
+
+  //Elegir origen y destino
+  await page.waitForSelector("#origin  > div > div > input");
   await page.focus("#origin > div > div > input");
-  await page.keyboard.type("VIGO (TODAS", { delay: 200 });
+  await page.keyboard.type(origin);
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
   await page.focus("#destination > div > div > input");
-  await page.keyboard.type("MADRID (TODAS)", { delay: 200 });
+  await page.keyboard.type(destination);
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
@@ -51,39 +61,25 @@ async function checkPrice(page) {
     "#contentPage > div > div > div:nth-child(1) > div > div > div > div > div > div > rf-header > rf-header-top > div.rf-header__wrap-search.grid > rf-search > div > div.rf-search__filters.rf-search__filters--open > div.rf-search__wrapper-calendar > div.rf-search__calendar"
   );
 
-  // Fecha de mañana
-  let today = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    new Date().getDate(),
-    0,
-    0,
-    0
-  ).getTime();
-  let MILLISECoNDS_DAY = 24 * 60 * 60 * 1000;
-  let tomorrow = today + MILLISECoNDS_DAY;
-
-  await page.waitForSelector("#datepicker > section");
-  await page.click(`div[data-time="${tomorrow}"]`);
-  await page.click(
-    "#contentPage > div > div > div:nth-child(1) > div > div > div > div > div > div > rf-header > rf-header-top > div.rf-header__wrap-search.grid > rf-search > div > div.rf-search__filters.rf-search__filters--open > div.rf-search__wrapper-calendar > div.rf-search__calendar"
-  );
-  await page.click(
-    "#datepicker > section > div.lightpick__footer-buttons > button.lightpick__apply-action-sub"
-  );
   await page.click(
     "#contentPage > div > div > div:nth-child(1) > div > div > div > div > div > div > rf-header > rf-header-top > div.rf-header__wrap-search.grid > rf-search > div > div.rf-search__filters.rf-search__filters--open > div.rf-search__wrapper-button > div.rf-search__button > form > rf-button"
   );
-
   await page.waitForNavigation();
 
   let ticketsData;
   let data;
-  let counter = 2;
+  let counter = 1;
   for (let i = 0; i < 5; i++) {
-    let today = (new Date().getDate() + counter).toString().padStart(2, 0);
-    let month = (new Date().getMonth() + 1).toString().padStart(2, 0);
-    let year = new Date().getFullYear();
+    let selectDay = (new Date().getDate() + counter).toString().padStart(2, 0);
+    let selectMonth = (parseInt(month) + 1).toString().padStart(2, 0);
+    let selectYear = new Date().getFullYear();
+
+    await page.waitForSelector("#fechaSeleccionada0");
+    await page.focus("#fechaSeleccionada0");
+    await page.keyboard.type(`${selectDay}/${selectMonth}/${selectYear}`, {
+      delay: 200,
+    });
+    await page.keyboard.press("Enter");
 
     ticketsData === undefined ? (ticketsData = []) : (ticketsData = [...data]);
     await page.waitForSelector(".trayectoRow");
@@ -111,22 +107,19 @@ async function checkPrice(page) {
       });
       return ticketsData;
     }, ticketsData);
-    //Opcional si queremos darle un toque más humano
-    await page.waitForTimeout(randomWait());
-    await page.focus("#fechaSeleccionada0");
-    await page.keyboard.type(`${today}/${month}/${year}`, {
-      delay: 200,
-    });
-    await page.keyboard.press("Enter");
+
     counter++;
   }
-  return data;
+
+  const minPricesTickets = findMinPrice(data);
+
+  return { data, minPricesTickets };
 }
 
-async function startTracking() {
+async function startTracking(journey, month) {
   const page = await configureBrowser();
-  const tickets = await checkPrice(page);
-  return tickets
+  const tickets = await checkPrice(page, journey, month);
+  return tickets;
 }
 
 module.exports = { startTracking: startTracking };

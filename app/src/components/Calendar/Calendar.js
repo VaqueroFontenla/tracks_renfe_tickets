@@ -2,26 +2,8 @@ import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import "./Calendar.css";
 
-const findMinPrice = (tickets) => {
-  var minPrices = _(tickets)
-    .groupBy("date")
-    .map((tickets, date) => {
-      const minPrice = _.min(tickets.map((tickets) => tickets.price));
-      const day = new Date(date.split("/").reverse()).getDate();
-      return { day, minPrice };
-    })
-    .value();
 
-  const months = [
-    ...new Set(Array.from(new Set(minPrices.map((item) => item.month)))),
-  ];
-  const years = [
-    ...new Set(Array.from(new Set(minPrices.map((item) => item.year)))),
-  ];
-  return minPrices;
-};
-
-export const Calendar = ({ tickets, monthIndex, actualYear }) => {
+export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
   const locale = "es";
 
   const [monthName, setMonthName] = useState();
@@ -53,10 +35,10 @@ export const Calendar = ({ tickets, monthIndex, actualYear }) => {
         return { day };
       });
     };
-    unionArray(calendar(monthIndex).daysOfMonth, findMinPrice(tickets));
-    setMinPrices(findMinPrice(tickets));
+    unionArray(calendar(monthIndex).daysOfMonth, minPricesTickets);
+    setMinPrices(minPricesTickets);
     setDataCalendar(calendar(monthIndex));
-  }, [tickets]);
+  }, [minPricesTickets]);
 
   useEffect(() => {});
   return (

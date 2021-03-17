@@ -4,13 +4,13 @@ import "./Form.css";
 export const Form = ({ onSubmit }) => {
   const locale = "es";
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: "long" });
+  const indexCurrentMonth = new Date().getMonth();
   const currentMonth = intlForMonths.format(new Date());
-  const nextMonth = intlForMonths.format(
-    new Date().setMonth(new Date().getMonth() + 1)
-  );
+  const IndexNextMonth = new Date().getMonth() + 1;
+  const nextMonth = intlForMonths.format(new Date().setMonth(IndexNextMonth));
 
   const [dataForm, setDataForm] = useState({
-    month: currentMonth,
+    month: indexCurrentMonth,
     journey: "departure",
   });
 
@@ -18,7 +18,7 @@ export const Form = ({ onSubmit }) => {
     evt.preventDefault();
     onSubmit(dataForm);
   };
-  
+
   return (
     <form className="form" onSubmit={handleSubmit}>
       <div>
@@ -59,8 +59,8 @@ export const Form = ({ onSubmit }) => {
           }
         >
           <select>
-            <option value={currentMonth}>{currentMonth}</option>
-            <option value={nextMonth}>{nextMonth}</option>
+            <option value={indexCurrentMonth}>{currentMonth}</option>
+            <option value={IndexNextMonth}>{nextMonth}</option>
           </select>
           <i></i>
         </div>

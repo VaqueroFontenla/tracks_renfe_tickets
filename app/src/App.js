@@ -7,7 +7,7 @@ import { Form } from "./components/Form/Form";
 import { useTickets } from "./hooks/useTickets";
 
 export const App = () => {
-  const { tickets, loading, fetchTickets } = useTickets();
+  const { tickets, minPricesTickets, loading, fetchTickets } = useTickets();
   const actualYear = 2021;
   const monthIndex = 1;
   const onSubmit = (values) => {
@@ -23,13 +23,13 @@ export const App = () => {
       {tickets && (
         <>
           <Calendar
-            tickets={tickets}
+            tickets={minPricesTickets}
             actualYear={actualYear}
             monthIndex={monthIndex}
           />
           <ListOfTickets tickets={tickets} />
         </>
       )}
-    </div>     
+    </div>
   );
 };
