@@ -4,12 +4,13 @@ import "./App.css";
 import { ListOfTickets } from "./components/ListOfTickets/ListOfTickets";
 import { Calendar } from "./components/Calendar/Calendar";
 import { Form } from "./components/Form/Form";
+import { Spinner } from "./components/Spinner/Spinner";
 import { useTickets } from "./hooks/useTickets";
 
 export const App = () => {
   const { tickets, minPricesTickets, loading, fetchTickets } = useTickets();
-  const actualYear = 2021;
-  const monthIndex = 1;
+  const actualYear = new Date().getFullYear();
+  const monthIndex = new Date().getMonth();
   const onSubmit = (values) => {
     const queryParams = `?journey=${values.journey}&month=${values.month}`;
     fetchTickets(queryParams);
@@ -17,19 +18,23 @@ export const App = () => {
   return (
     <div className="wrapper">
       <div className="header">
-        <h1 className="title">Tickets</h1>
+        <h1 className="title">
+          Tickets{" "}
+          <span className="emoji" role="img" aria-label="locomotive">
+            🚂
+          </span>
+        </h1>
         <Form onSubmit={onSubmit} />
       </div>
-      {tickets && (
-        <>
-          <Calendar
-            tickets={minPricesTickets}
-            actualYear={actualYear}
-            monthIndex={monthIndex}
-          />
-          <ListOfTickets tickets={tickets} />
-        </>
+      {loading && <Spinner />}
+      {minPricesTickets && !loading && (
+        <Calendar
+          minPricesTickets={minPricesTickets}
+          actualYear={actualYear}
+          monthIndex={monthIndex}
+        />
       )}
+      {tickets && !loading && <ListOfTickets tickets={tickets} />}
     </div>
   );
 };

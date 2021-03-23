@@ -2,45 +2,39 @@ import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import "./Calendar.css";
 
-
 export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
   const locale = "es";
-
-  const [monthName, setMonthName] = useState();
-
   const [dataCalendar, setDataCalendar] = useState();
-  const [minPrices, setMinPrices] = useState();
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: "long" });
   const intlForWeeks = new Intl.DateTimeFormat(locale, { weekday: "long" });
   const weekDays = [...Array(7).keys()].map((dayIndex) =>
     intlForWeeks.format(new Date(actualYear, monthIndex, dayIndex + 1))
   );
 
-  const calendar = (monthIndex) => {
+  const calendar = () => {
     const monthName = intlForMonths.format(new Date(actualYear, monthIndex));
     const nextMonthIndex = (monthIndex + 1) % 12;
     const daysOfMonth = new Date(actualYear, nextMonthIndex, 0).getDate();
     const startsOn = new Date(actualYear, monthIndex, 1).getDay();
-
+    const monthDays = [...Array(daysOfMonth).keys()].map((day) => {
+      return { day: day };
+    });
+    const calendar = _.unionBy(minPricesTickets, monthDays, "day").sort(
+      function (a, b) {
+        return parseFloat(a.day) - parseFloat(b.day);
+      }
+    );
     return {
-      daysOfMonth,
+      calendar,
       monthName,
       startsOn,
     };
   };
 
   useEffect(() => {
-    const unionArray = (daysOfMonth, minPrices) => {
-      const newArray = Array.from([...Array(daysOfMonth).keys()], (day) => {
-        return { day };
-      });
-    };
-    unionArray(calendar(monthIndex).daysOfMonth, minPricesTickets);
-    setMinPrices(minPricesTickets);
-    setDataCalendar(calendar(monthIndex));
+    setDataCalendar(calendar());
   }, [minPricesTickets]);
 
-  useEffect(() => {});
   return (
     <>
       {dataCalendar && (
@@ -55,18 +49,20 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
               </li>
             ))}
 
-            {[...Array(dataCalendar.daysOfMonth).keys()].map((day, index) =>
+            {dataCalendar.calendar.map((day, index) =>
               index === 0 ? (
                 <li
                   key={index}
                   className="day"
                   style={{ gridColumnStart: dataCalendar.startsOn }}
                 >
-                  <span>{day + 1}</span>
+                  <span className="day-of-month">{day.day + 1}</span>
+                  <span className="price-of-day">{day.minPrice}</span>
                 </li>
               ) : (
                 <li key={index} className="day">
-                  <span>{day + 1}</span>
+                  <span className="day-of-month">{day.day + 1}</span>
+                  <span className="price-of-day">{day.minPrice}</span>
                 </li>
               )
             )}

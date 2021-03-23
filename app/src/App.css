@@ -19,5 +19,11 @@
   display: grid;
   grid-template-columns: 2fr 4fr;
 }
+
 .title {
+  font-size: 4rem;
+}
+
+.emoji {
+  font-size: 4rem;
 }

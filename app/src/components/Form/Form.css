@@ -44,7 +44,7 @@ legend {
   width: 14px;
   border-radius: 100%;
   position: absolute;
-  top: 4px;
+  top: 4px; 
   left: 4px;
   background: var(--theme-color-secondary);
   transition: all 0.25s ease;

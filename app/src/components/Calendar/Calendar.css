@@ -33,15 +33,26 @@
 }
 
 .day {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: var(--cell-size);
   padding: 0.5rem;
   border-top: 1px solid rgba(0, 0, 0, 0.16);
   border-left: 1px solid rgba(0, 0, 0, 0.16);
-
-  font-weight: 700;
-  text-align: end;
 }
 
 .day:nth-child(7n + 8) {
   border-left: 0;
+}
+
+.day-of-month {
+  text-align: end;
+}
+
+.price-of-day {
+  margin: 0 2rem;
+  box-shadow: var(--theme-color-highlight) 0px -2rem 0px inset;
+  font-weight: 700;
+  text-align: center;
 }

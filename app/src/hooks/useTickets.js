@@ -9,14 +9,13 @@ export const useTickets = () => {
   const fetchTickets = useCallback(async (queryParams) => {
     try {
       setLoading(true);
-      const { data, minPricesTickets } = await getTickets(queryParams)
+      const { data, minPricesTickets } = await getTickets(queryParams);
       setTickets(data);
-      setMinPricesTickets(minPricesTickets)
+      setMinPricesTickets(minPricesTickets);
       setLoading(false);
     } catch (error) {
       console.log(error);
     }
   }, []);
-
   return { tickets, loading, fetchTickets, minPricesTickets };
 };
