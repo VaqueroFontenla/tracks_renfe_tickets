@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const startTracking = require("./src/api/index");
+const startTracking = require("./api/index");
 
 // create server
 const server = express();

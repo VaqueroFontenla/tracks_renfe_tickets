@@ -1,37 +1,9 @@
-const puppeteer = require("puppeteer");
+const configureBrowser = require("./configureBrowser");
+const findMinPrices = require("./findMinPrices");
 const fs = require("fs");
-const _ = require("lodash");
-const url = "https://www.renfe.com/es/es";
-
-const findMinPrice = (tickets) => {
-  var minPrices = _(tickets)
-    .groupBy("date")
-    .map((tickets, date) => {
-      const minPrice = _.min(tickets.map((tickets) => tickets.price));
-      const day = new Date(date.split("/").reverse()).getDate();
-      return { day, minPrice };
-    })
-    .value();
-  return minPrices;
-};
-
-async function configureBrowser() {
-  const browser = await puppeteer.launch({ headless: false }); //Crear el navegar
-  const context = await browser.createIncognitoBrowserContext();
-  const page = await context.newPage(); // Instancia de la paǵina
-  await page.setViewport({
-    width: 1920,
-    height: 1080,
-  });
-  await page.goto(url),
-    {
-      waitUntil: "networkidle0",
-      timeout: 3000,
-    };
-  return page;
-}
 
 async function checkPrice(page, journey, month) {
+  await page.waitForTimeout(1000);
   const origin = journey === "departure" ? "MADRID (TODAS)" : "VIGO (TODAS)";
   const destination =
     journey === "departure" ? "VIGO (TODAS)" : "MADRID (TODAS)";
@@ -69,14 +41,21 @@ async function checkPrice(page, journey, month) {
   let ticketsData;
   let data;
   let counter = 1;
-  for (let i = 0; i < 5; i++) {
+  let firstDay = new Date().getDate();
+  let lastDayOfMonth = new Date(
+    new Date().getFullYear(),
+    month + 1,
+    0
+  ).getDate();
+  for (let i = 1; i < lastDayOfMonth - firstDay; i++) {
     let selectDay = (new Date().getDate() + counter).toString().padStart(2, 0);
     let selectMonth = (parseInt(month) + 1).toString().padStart(2, 0);
     let selectYear = new Date().getFullYear();
+    let selectedDate = `${selectDay}/${selectMonth}/${selectYear}`;
 
     await page.waitForSelector("#fechaSeleccionada0");
     await page.focus("#fechaSeleccionada0");
-    await page.keyboard.type(`${selectDay}/${selectMonth}/${selectYear}`, {
+    await page.keyboard.type(selectedDate, {
       delay: 200,
     });
     await page.keyboard.press("Enter");
@@ -111,15 +90,30 @@ async function checkPrice(page, journey, month) {
     counter++;
   }
 
-  const minPricesTickets = findMinPrice(data);
+  fs.writeFile("api/tickets.json", JSON.stringify(data), (err) => {
+    if (err) console.log(err);
+    console.log("Tickets: Successfully Written to File.");
+  });
+
+  const minPricesTickets = findMinPrices.findMinPrices(data);
+
+  fs.writeFile(
+    "api/minPricesTickets.json",
+    JSON.stringify(minPricesTickets),
+    (err) => {
+      if (err) console.log(err);
+      console.log("Min Prices Tickets: Successfully Written to File.");
+    }
+  );
 
   return { data, minPricesTickets };
 }
 
 async function startTracking(journey, month) {
-  const page = await configureBrowser();
+  const { page, browser } = await configureBrowser.configureBrowser();
   const tickets = await checkPrice(page, journey, month);
+  await browser.close();
   return tickets;
 }
 
-module.exports = { startTracking: startTracking };
+module.exports = { startTracking };

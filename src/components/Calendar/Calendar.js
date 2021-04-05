@@ -4,12 +4,17 @@ import "./Calendar.css";
 
 export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
   const locale = "es";
+  const weekDaysNames = [
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+    "Domingo",
+  ];
   const [dataCalendar, setDataCalendar] = useState();
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: "long" });
-  const intlForWeeks = new Intl.DateTimeFormat(locale, { weekday: "long" });
-  const weekDays = [...Array(7).keys()].map((dayIndex) =>
-    intlForWeeks.format(new Date(actualYear, monthIndex, dayIndex + 1))
-  );
 
   const calendar = () => {
     const monthName = intlForMonths.format(new Date(actualYear, monthIndex));
@@ -17,13 +22,14 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
     const daysOfMonth = new Date(actualYear, nextMonthIndex, 0).getDate();
     const startsOn = new Date(actualYear, monthIndex, 1).getDay();
     const monthDays = [...Array(daysOfMonth).keys()].map((day) => {
-      return { day: day };
+      return { day: day +1 };
     });
     const calendar = _.unionBy(minPricesTickets, monthDays, "day").sort(
       function (a, b) {
         return parseFloat(a.day) - parseFloat(b.day);
       }
     );
+    console.log(calendar);
     return {
       calendar,
       monthName,
@@ -43,7 +49,7 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
             {dataCalendar.monthName} - {actualYear}
           </div>
           <ol className="calendar-body">
-            {weekDays.map((day, index) => (
+            {weekDaysNames.map((day, index) => (
               <li key={index} className="day-of-week">
                 {day}
               </li>
@@ -56,12 +62,12 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
                   className="day"
                   style={{ gridColumnStart: dataCalendar.startsOn }}
                 >
-                  <span className="day-of-month">{day.day + 1}</span>
+                  <span className="day-of-month">{day.day}</span>
                   <span className="price-of-day">{day.minPrice}</span>
                 </li>
               ) : (
                 <li key={index} className="day">
-                  <span className="day-of-month">{day.day + 1}</span>
+                  <span className="day-of-month">{day.day}</span>
                   <span className="price-of-day">{day.minPrice}</span>
                 </li>
               )
