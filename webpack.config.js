@@ -13,7 +13,7 @@ module.exports = {
   entry: path.resolve(__dirname, "public/src/index"),
   output: {
     path: path.resolve(__dirname, "public/dist"),
-    publicPath: "./public",
+    publicPath: "./",
     filename: "[name].[chunkhash].js",
   },
   module: {

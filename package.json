@@ -1,10 +1,12 @@
 {
-  "name": "app",
+  "name": "tracks_renfe_tickets",
+  "homepage": "https://github.com/VaqueroFontenla/github.io/tracks_renfe_tickets",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development --open",
+    "start:front": "webpack serve --mode development --open",
+    "start": "node server.js",
     "build": "webpack --mode production"
   },
   "keywords": [],
