@@ -3,31 +3,31 @@ const cors = require("cors");
 const startTracking = require("./src/index");
 const tickets = require("./src/data/tickets.json");
 
-// create server
-const server = express();
+// create app
+const app = express();
 
 // set express middleware
-server.use(express.json());
-server.use(cors());
+app.use(express.json());
+app.use(cors());
 
 // init express aplication
-const serverPort = 3000;
-server.listen(serverPort, () => {
-  console.log(`Server listening at http://localhost:${serverPort}`);
+const appPort = 3000;
+app.listen(appPort, () => {
+  console.log(`app listening at http://localhost:${appPort}`);
 });
 
-// static server
-const staticServerPath = "./public/dist";
-server.use(express.static(staticServerPath));
+// static app
+const staticappPath = "./public/dist";
+app.use(express.static(staticappPath));
 
-server.get("/updated-tickets", async (req, res) => {
+app.get("/updated-tickets", async (req, res) => {
   const journey = req.query.journey;
   const month = req.query.month;
   await startTracking.startTracking(journey, month);
   res.send("Tickets: Successfully Written to File.");
 });
 
-server.get("/tickets", async (req, res) => {
+app.get("/tickets", async (req, res) => {
   res.json({
     result: tickets,
   });
