@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import _ from "lodash";
 import "./App.css";
 import { ListOfTickets } from "./components/ListOfTickets/ListOfTickets";
@@ -8,13 +8,16 @@ import { Spinner } from "./components/Spinner/Spinner";
 import { useTickets } from "./hooks/useTickets";
 
 export const App = () => {
-  const { tickets, minPricesTickets, loading, fetchTickets } = useTickets();
+  const [queryParams, setQueryParams] = useState();
+  const { tickets, minPricesTickets, loading } = useTickets(queryParams);
   const actualYear = new Date().getFullYear();
   const monthIndex = new Date().getMonth();
-  const onSubmit = (values) => {
+
+  const onSubmit = async (values) => {
     const queryParams = `?journey=${values.journey}&month=${values.month}`;
-    fetchTickets(queryParams);
+    setQueryParams(queryParams);
   };
+
   return (
     <div className="wrapper">
       <div className="header">

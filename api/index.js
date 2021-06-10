@@ -20,7 +20,7 @@ async function checkPrice(page, journey, month) {
   await page.keyboard.press("ArrowDown");
   await page.keyboard.press("Enter");
 
-  // Elegir trayecto de ida
+  // Elegir trayecto ida
   await page.click("#tripType");
   await page.waitForSelector("#tripType > div > div", {
     visible: true,
@@ -47,6 +47,7 @@ async function checkPrice(page, journey, month) {
     month + 1,
     0
   ).getDate();
+
   for (let i = 1; i < lastDayOfMonth - firstDay; i++) {
     let selectDay = (new Date().getDate() + counter).toString().padStart(2, 0);
     let selectMonth = (parseInt(month) + 1).toString().padStart(2, 0);
@@ -59,7 +60,7 @@ async function checkPrice(page, journey, month) {
       delay: 200,
     });
     await page.keyboard.press("Enter");
-
+    await page.waitForTimeout(1000);
     ticketsData === undefined ? (ticketsData = []) : (ticketsData = [...data]);
     await page.waitForSelector(".trayectoRow");
     data = await page.evaluate((ticketsData) => {
@@ -90,23 +91,16 @@ async function checkPrice(page, journey, month) {
     counter++;
   }
 
-  fs.writeFile("api/tickets.json", JSON.stringify(data), (err) => {
-    if (err) console.log(err);
-    console.log("Tickets: Successfully Written to File.");
-  });
-
   const minPricesTickets = findMinPrices.findMinPrices(data);
 
   fs.writeFile(
-    "api/minPricesTickets.json",
-    JSON.stringify(minPricesTickets),
+    "api/data/tickets.json",
+    JSON.stringify({ tickets: data, minPricesTickets }),
     (err) => {
       if (err) console.log(err);
-      console.log("Min Prices Tickets: Successfully Written to File.");
+      console.log("Tickets: Successfully Written to File.");
     }
   );
-
-  return { data, minPricesTickets };
 }
 
 async function startTracking(journey, month) {

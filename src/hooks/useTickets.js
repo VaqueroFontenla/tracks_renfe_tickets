@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { getTickets } from "../services/getTickets";
+import { updateTickets } from "../services/updateTickets";
 
-export const useTickets = () => {
+export const useTickets = (queryParams) => {
   const [tickets, setTickets] = useState();
   const [minPricesTickets, setMinPricesTickets] = useState();
   const [loading, setLoading] = useState(false);
@@ -9,13 +10,18 @@ export const useTickets = () => {
   const fetchTickets = useCallback(async (queryParams) => {
     try {
       setLoading(true);
-      const { data, minPricesTickets } = await getTickets(queryParams);
-      setTickets(data);
+      queryParams && (await updateTickets(queryParams));
+      const { tickets, minPricesTickets } = await getTickets();
+      setTickets(tickets);
       setMinPricesTickets(minPricesTickets);
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }, []);
-  return { tickets, loading, fetchTickets, minPricesTickets };
+
+  useEffect(() => fetchTickets(queryParams), [fetchTickets, queryParams]);
+
+  return { tickets, loading, minPricesTickets };
 };

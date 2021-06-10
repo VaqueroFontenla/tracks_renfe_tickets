@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const startTracking = require("./api/index");
+const tickets = require("./api/data/tickets.json");
 
 // create server
 const server = express();
@@ -16,13 +17,17 @@ server.listen(serverPort, () => {
 });
 
 // static server
-const staticServerPath = "./dist";
+const staticServerPath = "./public/dist";
 server.use(express.static(staticServerPath));
 
-server.get("/tickets", async (req, res) => {
+server.get("/updated-tickets", async (req, res) => {
   const journey = req.query.journey;
   const month = req.query.month;
-  const tickets = await startTracking.startTracking(journey, month);
+  await startTracking.startTracking(journey, month);
+  res.send("Tickets: Successfully Written to File.");
+});
+
+server.get("/tickets", async (req, res) => {
   res.json({
     result: tickets,
   });

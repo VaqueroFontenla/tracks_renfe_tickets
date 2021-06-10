@@ -26,5 +26,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [htmlPlugin, daysjsPlugin]
+  plugins: [htmlPlugin, daysjsPlugin],
 };

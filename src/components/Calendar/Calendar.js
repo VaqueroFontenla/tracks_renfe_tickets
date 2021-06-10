@@ -22,14 +22,14 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
     const daysOfMonth = new Date(actualYear, nextMonthIndex, 0).getDate();
     const startsOn = new Date(actualYear, monthIndex, 1).getDay();
     const monthDays = [...Array(daysOfMonth).keys()].map((day) => {
-      return { day: day +1 };
+      return { day: day + 1 };
     });
     const calendar = _.unionBy(minPricesTickets, monthDays, "day").sort(
       function (a, b) {
         return parseFloat(a.day) - parseFloat(b.day);
       }
     );
-    console.log(calendar);
+
     return {
       calendar,
       monthName,

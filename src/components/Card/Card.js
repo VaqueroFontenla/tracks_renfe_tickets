@@ -16,7 +16,7 @@ export const Card = ({ date, duration, departure, price }) => {
   return (
     <div className="card">
       <span className="date">{formatDate(date)}</span>
-      <span className="price">{price}</span>
+      <span className="price">{price || "Tren completo"}</span>
       <span>Duración: {duration}</span>
       <span>Hora salida: {departure}</span>
     </div>
