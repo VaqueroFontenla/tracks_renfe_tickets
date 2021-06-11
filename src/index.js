@@ -49,7 +49,14 @@ async function checkPrice(page, journey, month) {
   ).getDate();
 
   for (let i = 1; i < lastDayOfMonth - firstDay; i++) {
-    let selectDay = (new Date().getDate() + counter).toString().padStart(2, 0);
+    let firstDayOfTheMonth = 0;
+    let selectDay = (
+      (month === new Date().getMonth()
+        ? new Date().getDate()
+        : firstDayOfTheMonth) + counter
+    )
+      .toString()
+      .padStart(2, 0);
     let selectMonth = (parseInt(month) + 1).toString().padStart(2, 0);
     let selectYear = new Date().getFullYear();
     let selectedDate = `${selectDay}/${selectMonth}/${selectYear}`;
@@ -94,7 +101,7 @@ async function checkPrice(page, journey, month) {
   const minPricesTickets = findMinPrices.findMinPrices(data);
 
   fs.writeFile(
-    "api/data/tickets.json",
+    "src/data/tickets.json",
     JSON.stringify({ tickets: data, minPricesTickets }),
     (err) => {
       if (err) console.log(err);

@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import "./Form.css";
 
 export const Form = ({ onSubmit }) => {
-  const locale = "es";
+  const locale = "es-ES";
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const months = [...Array(12).keys()];
   const intlForMonths = new Intl.DateTimeFormat(locale, { month: "long" });
-  const indexCurrentMonth = new Date().getMonth();
-  const currentMonth = intlForMonths.format(new Date());
-  const IndexNextMonth = new Date().getMonth() + 1;
-  const nextMonth = intlForMonths.format(new Date().setMonth(IndexNextMonth));
+  const currentYearMonths = months.map((monthKey) => {
+    return {
+      key: monthKey,
+      label: intlForMonths.format(new Date(currentYear, monthKey)),
+    };
+  });
 
   const [dataForm, setDataForm] = useState({
-    month: indexCurrentMonth,
+    month: currentMonth,
     journey: "departure",
   });
 
@@ -59,8 +64,14 @@ export const Form = ({ onSubmit }) => {
           }
         >
           <select>
-            <option value={indexCurrentMonth}>{currentMonth}</option>
-            <option value={IndexNextMonth}>{nextMonth}</option>
+            {currentYearMonths.map(
+              (month) =>
+                month.key >= currentMonth && (
+                  <option value={month.key}>
+                    {month.label} {currentYear}
+                  </option>
+                )
+            )}
           </select>
           <i></i>
         </div>
