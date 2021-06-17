@@ -9,9 +9,8 @@ import { useTickets } from "./hooks/useTickets";
 
 export const App = () => {
   const [queryParams, setQueryParams] = useState();
-  const { tickets, minPricesTickets, loading } = useTickets(queryParams);
+  const { data, loading } = useTickets(queryParams);
   const actualYear = new Date().getFullYear();
-  const monthIndex = new Date().getMonth();
 
   const onSubmit = async (values) => {
     const queryParams = `?journey=${values.journey}&month=${values.month}`;
@@ -30,14 +29,15 @@ export const App = () => {
         <Form onSubmit={onSubmit} />
       </div>
       {loading && <Spinner />}
-      {minPricesTickets && !loading && (
+      <span className="last-search">Última búsqueda: </span>
+      {data.minPricesTickets && !loading && (
         <Calendar
-          minPricesTickets={minPricesTickets}
+          minPricesTickets={data.minPricesTickets}
           actualYear={actualYear}
-          monthIndex={monthIndex}
+          monthIndex={data.month}
         />
       )}
-      {tickets && !loading && <ListOfTickets tickets={tickets} />}
+      {data.tickets && !loading && <ListOfTickets tickets={data.tickets} />}
     </div>
   );
 };

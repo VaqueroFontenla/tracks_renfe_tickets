@@ -6,14 +6,18 @@ export const useTickets = (queryParams) => {
   const [tickets, setTickets] = useState();
   const [minPricesTickets, setMinPricesTickets] = useState();
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({
+    tickets: [],
+    minPricesTickets: [],
+    month: new Date().getMonth(),
+  });
 
   const fetchTickets = useCallback(async (queryParams) => {
     try {
       setLoading(true);
       queryParams && (await updateTickets(queryParams));
-      const { tickets, minPricesTickets } = await getTickets();
-      setTickets(tickets);
-      setMinPricesTickets(minPricesTickets);
+      const { tickets, minPricesTickets, month } = await getTickets();
+      setData({ tickets, minPricesTickets, month });
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -23,5 +27,5 @@ export const useTickets = (queryParams) => {
 
   useEffect(() => fetchTickets(queryParams), [fetchTickets, queryParams]);
 
-  return { tickets, loading, minPricesTickets };
+  return { data, loading };
 };

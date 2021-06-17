@@ -69,29 +69,41 @@ async function checkPrice(page, journey, month) {
     await page.keyboard.press("Enter");
     await page.waitForTimeout(1000);
     ticketsData === undefined ? (ticketsData = []) : (ticketsData = [...data]);
-    await page.waitForSelector(".trayectoRow");
+    await page.waitForSelector(".trayectoRow, #tab-mensaje_contenido");
+
     data = await page.evaluate((ticketsData) => {
       let tickets = [...document.querySelectorAll(".trayectoRow")];
 
-      tickets.forEach((ticket) => {
-        let ticketJSON = {};
-
-        try {
-          ticketJSON.date = document.querySelector("#fechaSeleccionada0").value;
-          ticketJSON.departure = ticket
-            .querySelector(".trayectoRow > td:nth-child(2) > div:nth-child(1)")
-            .innerText.trim();
-          ticketJSON.duration = ticket
-            .querySelector(".trayectoRow > td:nth-child(2) > div:nth-child(2)")
-            .innerText.trim();
-          ticketJSON.price = ticket.querySelector(
-            ".trayectoRow > td:nth-child(5) > button > div:nth-child(2)"
-          ).innerText;
-        } catch (exception) {
-          console.log(exception);
-        }
-        ticketsData.push(ticketJSON);
-      });
+      tickets.length > 0
+        ? tickets.forEach((ticket) => {
+            let ticketJSON = {};
+            try {
+              ticketJSON.date = document.querySelector(
+                "#fechaSeleccionada0"
+              ).value;
+              ticketJSON.departure = ticket
+                .querySelector(
+                  ".trayectoRow > td:nth-child(2) > div:nth-child(1)"
+                )
+                .innerText.trim();
+              ticketJSON.duration = ticket
+                .querySelector(
+                  ".trayectoRow > td:nth-child(2) > div:nth-child(2)"
+                )
+                .innerText.trim();
+              ticketJSON.price = ticket.querySelector(
+                ".trayectoRow > td:nth-child(5) > button > div:nth-child(2)"
+              ).innerText;
+            } catch (exception) {
+              console.log(exception);
+            }
+            ticketsData.push(ticketJSON);
+          })
+        : ticketsData.push({
+            date: document.querySelector("#fechaSeleccionada0").value,
+            noTickets:
+              "El trayecto consultado no se encuentra disponible para la venta",
+          });
       return ticketsData;
     }, ticketsData);
 
@@ -99,10 +111,21 @@ async function checkPrice(page, journey, month) {
   }
 
   const minPricesTickets = findMinPrices.findMinPrices(data);
+  const monthForCalendar = (tickets) => {
+    const months = tickets.map((data) =>
+      new Date(new Date(data.date).toLocaleDateString("es-ES")).getMonth()
+    );
+
+    return [...new Set(months)][0];
+  };
 
   fs.writeFile(
     "src/data/tickets.json",
-    JSON.stringify({ tickets: data, minPricesTickets }),
+    JSON.stringify({
+      tickets: data,
+      minPricesTickets,
+      month: monthForCalendar(tickets),
+    }),
     (err) => {
       if (err) console.log(err);
       console.log("Tickets: Successfully Written to File.");

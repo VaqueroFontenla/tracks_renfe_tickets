@@ -1,7 +1,7 @@
 import React from "react";
 import "./Card.css";
 
-export const Card = ({ date, duration, departure, price }) => {
+export const Card = ({ date, duration, departure, price, noTickets }) => {
   const formatDate = (date) => {
     const options = {
       weekday: "long",
@@ -16,9 +16,10 @@ export const Card = ({ date, duration, departure, price }) => {
   return (
     <div className="card">
       <span className="date">{formatDate(date)}</span>
-      <span className="price">{price || "Tren completo"}</span>
-      <span>Duración: {duration}</span>
-      <span>Hora salida: {departure}</span>
+      {price && <span className="price">{price || "Tren completo"}</span>}
+      {duration && <span>Duración: {duration}</span>}
+      {departure && <span>Hora salida: {departure}</span>}
+      {noTickets && <span>{noTickets}</span>}
     </div>
   );
 };
