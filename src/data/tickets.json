@@ -1,101 +1,375 @@
 {
   "tickets": [
+    { "date": "11/07/2021", "departure": "15.25", "duration": "5 h. 40 min." },
+    { "date": "11/07/2021", "departure": "17.30", "duration": "5 h. 45 min." },
+    { "date": "12/07/2021", "departure": "15.25", "duration": "5 h. 40 min." },
+    { "date": "12/07/2021", "departure": "17.30", "duration": "5 h. 45 min." },
     {
-      "date": "01/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "13/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
     },
     {
-      "date": "02/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "13/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "03/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "13/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "04/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "13/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
     },
     {
-      "date": "05/11/2021",
-      "departure": "09.30",
-      "duration": "13 h. 36 min.",
-      "price": "54,25 €"
+      "date": "14/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
     },
     {
-      "date": "06/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "14/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "48,50 €"
     },
     {
-      "date": "07/11/2021",
-      "departure": "09.30",
-      "duration": "13 h. 36 min.",
-      "price": "54,25 €"
+      "date": "14/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "08/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "14/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
     },
     {
-      "date": "09/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "15/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
     },
     {
-      "date": "10/11/2021",
-      "departure": "09.30",
-      "duration": "13 h. 36 min.",
-      "price": "45,95 €"
+      "date": "15/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "48,50 €"
     },
     {
-      "date": "11/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "15/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "12/11/2021",
-      "departure": "09.30",
-      "duration": "13 h. 36 min.",
-      "price": "45,95 €"
+      "date": "15/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
     },
     {
-      "date": "12/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "16/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
     },
     {
-      "date": "14/11/2021",
-      "departure": "09.30",
-      "duration": "13 h. 36 min.",
-      "price": "54,25 €"
+      "date": "16/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "15/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "16/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "16/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "16/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
     },
     {
-      "date": "17/11/2021",
-      "departure": "09.30",
-      "duration": "13 h. 36 min.",
-      "price": "45,95 €"
+      "date": "17/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
     },
     {
-      "date": "18/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "17/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "54,55 €"
     },
     {
-      "date": "19/11/2021",
-      "noTickets": "El trayecto consultado no se encuentra disponible para la venta"
+      "date": "17/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "17/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
+    },
+    { "date": "18/07/2021", "departure": "15.25", "duration": "5 h. 40 min." },
+    { "date": "18/07/2021", "departure": "17.30", "duration": "5 h. 45 min." },
+    { "date": "19/07/2021", "departure": "15.25", "duration": "5 h. 40 min." },
+    { "date": "19/07/2021", "departure": "17.30", "duration": "5 h. 45 min." },
+    {
+      "date": "20/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "20/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "48,50 €"
+    },
+    {
+      "date": "20/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "20/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
+    },
+    {
+      "date": "21/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "21/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "42,40 €"
+    },
+    {
+      "date": "21/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "48,50 €"
+    },
+    {
+      "date": "21/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
+    },
+    {
+      "date": "22/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "22/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "42,40 €"
+    },
+    {
+      "date": "22/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "48,50 €"
+    },
+    {
+      "date": "22/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
+    },
+    {
+      "date": "23/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "23/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "23/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "23/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
+    },
+    {
+      "date": "24/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "24/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "24/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "24/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
+    },
+    { "date": "25/07/2021", "departure": "15.25", "duration": "5 h. 40 min." },
+    { "date": "25/07/2021", "departure": "17.30", "duration": "5 h. 45 min." },
+    { "date": "26/07/2021", "departure": "15.25", "duration": "5 h. 40 min." },
+    { "date": "26/07/2021", "departure": "17.30", "duration": "5 h. 45 min." },
+    {
+      "date": "27/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "27/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "36,35 €"
+    },
+    {
+      "date": "27/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "27/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "46,70 €"
+    },
+    {
+      "date": "28/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "28/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "36,35 €"
+    },
+    {
+      "date": "28/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "48,50 €"
+    },
+    {
+      "date": "28/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "40,90 €"
+    },
+    {
+      "date": "29/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "29/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "36,35 €"
+    },
+    {
+      "date": "29/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "48,50 €"
+    },
+    {
+      "date": "29/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "40,90 €"
+    },
+    {
+      "date": "30/07/2021",
+      "departure": "06.40",
+      "duration": "6 h. 10 min.",
+      "price": "55,10 €"
+    },
+    {
+      "date": "30/07/2021",
+      "departure": "08.55",
+      "duration": "5 h. 10 min.",
+      "price": "48,50 €"
+    },
+    {
+      "date": "30/07/2021",
+      "departure": "15.25",
+      "duration": "5 h. 40 min.",
+      "price": "54,55 €"
+    },
+    {
+      "date": "30/07/2021",
+      "departure": "17.30",
+      "duration": "5 h. 45 min.",
+      "price": "52,55 €"
     }
   ],
   "minPricesTickets": [
-    { "day": 5, "minPrice": "54,25 €" },
-    { "day": 7, "minPrice": "54,25 €" },
-    { "day": 10, "minPrice": "45,95 €" },
-    { "day": 12, "minPrice": "45,95 €" },
-    { "day": 14, "minPrice": "54,25 €" },
-    { "day": 17, "minPrice": "45,95 €" }
+    { "day": 11 },
+    { "day": 12 },
+    { "day": 13, "minPrice": "52,55 €" },
+    { "day": 14, "minPrice": "48,50 €" },
+    { "day": 15, "minPrice": "48,50 €" },
+    { "day": 16, "minPrice": "52,55 €" },
+    { "day": 17, "minPrice": "52,55 €" },
+    { "day": 18 },
+    { "day": 19 },
+    { "day": 20, "minPrice": "48,50 €" },
+    { "day": 21, "minPrice": "42,40 €" },
+    { "day": 22, "minPrice": "42,40 €" },
+    { "day": 23, "minPrice": "52,55 €" },
+    { "day": 24, "minPrice": "52,55 €" },
+    { "day": 25 },
+    { "day": 26 },
+    { "day": 27, "minPrice": "36,35 €" },
+    { "day": 28, "minPrice": "36,35 €" },
+    { "day": 29, "minPrice": "36,35 €" },
+    { "day": 30, "minPrice": "48,50 €" }
   ],
-  "month": 10
+  "month": "6"
 }

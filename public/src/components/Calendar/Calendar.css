@@ -42,10 +42,6 @@
   border-left: 1px solid rgba(0, 0, 0, 0.16);
 }
 
-.day:nth-child(7n + 8) {
-  border-left: 0;
-}
-
 .day-of-month {
   text-align: end;
 }

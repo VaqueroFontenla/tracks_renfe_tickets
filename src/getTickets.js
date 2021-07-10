@@ -1,10 +1,9 @@
-const getTicket = require("./getTicket");
-
 const getTickets = async (month, page) => {
   let ticketsData;
   let data;
   let counter = 1;
-  let firstDay = new Date().getDate();
+  let firstDay =
+    month == new Date().getMonth() ? new Date().getDate() : firstDayOfTheMonth;
   let lastDayOfMonth = new Date(
     new Date().getFullYear(),
     month + 1,
@@ -14,7 +13,7 @@ const getTickets = async (month, page) => {
   for (let i = 1; i < lastDayOfMonth - firstDay; i++) {
     let firstDayOfTheMonth = 0;
     let selectDay = (
-      (month === new Date().getMonth()
+      (month == new Date().getMonth()
         ? new Date().getDate()
         : firstDayOfTheMonth) + counter
     )
@@ -33,12 +32,29 @@ const getTickets = async (month, page) => {
     await page.waitForTimeout(1000);
     ticketsData === undefined ? (ticketsData = []) : (ticketsData = [...data]);
     await page.waitForSelector(".trayectoRow, #tab-mensaje_contenido");
-
     data = await page.evaluate((ticketsData) => {
+      const createCustomTicket = (ticket) => {
+        let ticketJSON = {};
+        try {
+          ticketJSON.date = document.querySelector("#fechaSeleccionada0").value;
+          ticketJSON.departure = ticket
+            .querySelector(".trayectoRow > td:nth-child(2) > div:nth-child(1)")
+            .innerText.trim();
+          ticketJSON.duration = ticket
+            .querySelector(".trayectoRow > td:nth-child(2) > div:nth-child(2)")
+            .innerText.trim();
+          ticketJSON.price = ticket.querySelector(
+            ".trayectoRow > td:nth-child(5) > button > div:nth-child(2)"
+          ).innerText;
+        } catch (exception) {
+          console.log(exception);
+        }
+        ticketsData.push(ticketJSON);
+      };
       let tickets = [...document.querySelectorAll(".trayectoRow")];
 
       tickets.length > 0
-        ? tickets.forEach((ticket) => getTicket.getTicket(ticket))
+        ? tickets.forEach((ticket) => createCustomTicket(ticket))
         : ticketsData.push({
             date: document.querySelector("#fechaSeleccionada0").value,
             noTickets:
@@ -49,6 +65,7 @@ const getTickets = async (month, page) => {
 
     counter++;
   }
+  return data;
 };
 
 module.exports = { getTickets };

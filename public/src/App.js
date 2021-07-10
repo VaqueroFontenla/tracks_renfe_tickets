@@ -29,7 +29,9 @@ export const App = () => {
         <Form onSubmit={onSubmit} />
       </div>
       {loading && <Spinner />}
-      {data && <span className="last-search">Última búsqueda: </span>}
+      {data && !loading && (
+        <span className="last-search">Última búsqueda: </span>
+      )}
       {data.minPricesTickets && !loading && (
         <Calendar
           minPricesTickets={data.minPricesTickets}

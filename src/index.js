@@ -1,6 +1,5 @@
 const configureBrowser = require("./configureBrowser");
 const findMinPrices = require("./findMinPrices");
-const monthForCalendar = require("./monthForCalendar");
 const getTickets = require("./getTickets");
 const fs = require("fs");
 
@@ -42,14 +41,13 @@ async function checkPrice(page, journey, month) {
 
   const data = await getTickets.getTickets(month, page);
   const minPricesTickets = findMinPrices.findMinPrices(data);
-  const monthCalendar = monthForCalendar.monthForCalendar(data);
 
   fs.writeFile(
     "src/data/tickets.json",
     JSON.stringify({
       tickets: data,
       minPricesTickets,
-      month: monthCalendar,
+      month,
     }),
     (err) => {
       if (err) console.log(err);
