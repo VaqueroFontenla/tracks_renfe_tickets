@@ -14,7 +14,6 @@ export const useTickets = (queryParams) => {
   const fetchTickets = useCallback(async (queryParams) => {
     try {
       setLoading(true);
-      queryParams && (await updateTickets(queryParams));
       const { tickets, minPricesTickets, month, journey } = queryParams
         ? await updateTickets(queryParams)
         : await getTickets();

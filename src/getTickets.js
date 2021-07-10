@@ -11,7 +11,7 @@ const getTickets = async (month, page) => {
     0
   ).getDate();
 
-  for (let i = 1; i < lastDayOfMonth - firstDay + 2; i++) {
+  for (let i = 1; i < lastDayOfMonth - firstDay + 1; i++) {
     let selectDay = (firstDay + counter).toString().padStart(2, 0);
     let selectMonth = (parseInt(month) + 1).toString().padStart(2, 0);
     let selectYear = new Date().getFullYear();

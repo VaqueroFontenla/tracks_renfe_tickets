@@ -1,4 +1,3 @@
-const fs = require("fs");
 const findMinPrices = require("./findMinPrices");
 const getTickets = require("./getTickets");
 
@@ -40,20 +39,6 @@ const checkPrice = async (page, journey, month) => {
 
   const data = await getTickets.getTickets(month, page);
   const minPricesTickets = findMinPrices.findMinPrices(data);
-
-  fs.writeFile(
-    "src/data/tickets.json",
-    JSON.stringify({
-      tickets: data,
-      minPricesTickets,
-      month,
-      journey: `${origin} - ${destination}`,
-    }),
-    (err) => {
-      if (err) console.log(err);
-      console.log("Tickets: Successfully Written to File.");
-    }
-  );
 
   return {
     tickets: data,
