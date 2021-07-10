@@ -52,3 +52,10 @@
   font-weight: 700;
   text-align: center;
 }
+
+.last-search {
+  color: var(--theme-color-secondary);
+  font-size: var(--large-font-size);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}

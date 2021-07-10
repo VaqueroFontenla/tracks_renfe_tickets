@@ -2,6 +2,7 @@ const getTickets = async (month, page) => {
   let ticketsData;
   let data;
   let counter = 1;
+  let firstDayOfTheMonth = 0;
   let firstDay =
     month == new Date().getMonth() ? new Date().getDate() : firstDayOfTheMonth;
   let lastDayOfMonth = new Date(
@@ -10,15 +11,8 @@ const getTickets = async (month, page) => {
     0
   ).getDate();
 
-  for (let i = 1; i < lastDayOfMonth - firstDay; i++) {
-    let firstDayOfTheMonth = 0;
-    let selectDay = (
-      (month == new Date().getMonth()
-        ? new Date().getDate()
-        : firstDayOfTheMonth) + counter
-    )
-      .toString()
-      .padStart(2, 0);
+  for (let i = 1; i < lastDayOfMonth - firstDay + 2; i++) {
+    let selectDay = (firstDay + counter).toString().padStart(2, 0);
     let selectMonth = (parseInt(month) + 1).toString().padStart(2, 0);
     let selectYear = new Date().getFullYear();
     let selectedDate = `${selectDay}/${selectMonth}/${selectYear}`;

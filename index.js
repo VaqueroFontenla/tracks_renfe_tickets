@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const startTracking = require("./src/index");
+const startTracking = require("./src/startTracking");
 const tickets = require("./src/data/tickets.json");
 
 // create app

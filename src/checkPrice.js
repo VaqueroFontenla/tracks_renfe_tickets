@@ -1,9 +1,8 @@
-const configureBrowser = require("./configureBrowser");
+const fs = require("fs");
 const findMinPrices = require("./findMinPrices");
 const getTickets = require("./getTickets");
-const fs = require("fs");
 
-async function checkPrice(page, journey, month) {
+const checkPrice = async (page, journey, month) => {
   await page.waitForTimeout(1000);
   const origin = journey === "departure" ? "MADRID (TODAS)" : "VIGO (TODAS)";
   const destination =
@@ -48,19 +47,20 @@ async function checkPrice(page, journey, month) {
       tickets: data,
       minPricesTickets,
       month,
+      journey: `${origin} - ${destination}`,
     }),
     (err) => {
       if (err) console.log(err);
       console.log("Tickets: Successfully Written to File.");
     }
   );
-}
 
-async function startTracking(journey, month) {
-  const { page, browser } = await configureBrowser.configureBrowser();
-  const tickets = await checkPrice(page, journey, month);
-  await browser.close();
-  return tickets;
-}
+  return {
+    tickets: data,
+    minPricesTickets,
+    month,
+    journey: `${origin} - ${destination}`,
+  };
+};
 
-module.exports = { startTracking };
+module.exports = { checkPrice };

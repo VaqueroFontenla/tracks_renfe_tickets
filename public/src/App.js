@@ -29,14 +29,12 @@ export const App = () => {
         <Form onSubmit={onSubmit} />
       </div>
       {loading && <Spinner />}
-      {data && !loading && (
-        <span className="last-search">Última búsqueda: </span>
-      )}
       {data.minPricesTickets && !loading && (
         <Calendar
           minPricesTickets={data.minPricesTickets}
           actualYear={actualYear}
           monthIndex={data.month}
+          journey={data.journey}
         />
       )}
       {data.tickets && !loading && <ListOfTickets tickets={data.tickets} />}

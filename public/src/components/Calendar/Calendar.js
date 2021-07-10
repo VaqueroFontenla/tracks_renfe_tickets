@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import _ from "lodash";
 import "./Calendar.css";
 
-export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
+export const Calendar = ({
+  minPricesTickets,
+  monthIndex,
+  actualYear,
+  journey,
+}) => {
   const locale = "es";
   const weekDaysNames = [
     "Lunes",
@@ -24,16 +28,19 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
     const monthDays = [...Array(daysOfMonth).keys()].map((day) => {
       return { day: day + 1 };
     });
-    const calendar = _.unionBy(minPricesTickets, monthDays, "day").sort(
-      function (a, b) {
-        return parseFloat(a.day) - parseFloat(b.day);
-      }
-    );
+
+    let getCoincidentDay = (day) =>
+      minPricesTickets.find((minPricesTicket) => minPricesTicket.day == day);
+
+    let calendar = monthDays.map((day) => {
+      let coincidentDay = getCoincidentDay(day.day);
+      return coincidentDay ? { ...coincidentDay } : { ...day };
+    });
 
     return {
       calendar,
       monthName,
-      startsOn,
+      startsOn: startsOn == 0 ? 7 : startsOn,
     };
   };
 
@@ -44,36 +51,40 @@ export const Calendar = ({ minPricesTickets, monthIndex, actualYear }) => {
   return (
     <>
       {dataCalendar && (
-        <div className="calendar">
-          <div className="calendar-header">
-            {dataCalendar.monthName} - {actualYear}
-          </div>
-          <ol className="calendar-body">
-            {weekDaysNames.map((day, index) => (
-              <li key={index} className="day-of-week">
-                {day}
-              </li>
-            ))}
+        <>
+          <span className="last-search">Última búsqueda: {journey} </span>
 
-            {dataCalendar.calendar.map((day, index) =>
-              index === 0 ? (
-                <li
-                  key={index}
-                  className="day"
-                  style={{ gridColumnStart: dataCalendar.startsOn }}
-                >
-                  <span className="day-of-month">{day.day}</span>
-                  <span className="price-of-day">{day.minPrice}</span>
+          <div className="calendar">
+            <div className="calendar-header">
+              {dataCalendar.monthName} - {actualYear}
+            </div>
+            <ol className="calendar-body">
+              {weekDaysNames.map((day, index) => (
+                <li key={index} className="day-of-week">
+                  {day}
                 </li>
-              ) : (
-                <li key={index} className="day">
-                  <span className="day-of-month">{day.day}</span>
-                  <span className="price-of-day">{day.minPrice}</span>
-                </li>
-              )
-            )}
-          </ol>
-        </div>
+              ))}
+
+              {dataCalendar.calendar.map((day, index) =>
+                index === 0 ? (
+                  <li
+                    key={index}
+                    className="day"
+                    style={{ gridColumnStart: dataCalendar.startsOn }}
+                  >
+                    <span className="day-of-month">{day.day}</span>
+                    <span className="price-of-day">{day.minPrice}</span>
+                  </li>
+                ) : (
+                  <li key={index} className="day">
+                    <span className="day-of-month">{day.day}</span>
+                    <span className="price-of-day">{day.minPrice}</span>
+                  </li>
+                )
+              )}
+            </ol>
+          </div>
+        </>
       )}
     </>
   );

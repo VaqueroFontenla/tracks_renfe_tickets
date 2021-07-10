@@ -1,13 +1,10 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const DayjsWebpackPlugin = require("dayjs-webpack-plugin");
 const path = require("path");
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: "./public/src/index.html",
   filename: "./index.html",
 });
-
-const daysjsPlugin = new DayjsWebpackPlugin();
 
 module.exports = {
   entry: path.resolve(__dirname, "public/src/index"),
@@ -33,5 +30,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [htmlPlugin, daysjsPlugin],
+  plugins: [htmlPlugin],
 };

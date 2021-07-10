@@ -3,21 +3,22 @@ import { getTickets } from "../services/getTickets";
 import { updateTickets } from "../services/updateTickets";
 
 export const useTickets = (queryParams) => {
-  const [tickets, setTickets] = useState();
-  const [minPricesTickets, setMinPricesTickets] = useState();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     tickets: [],
     minPricesTickets: [],
     month: new Date().getMonth(),
+    journey: "",
   });
 
   const fetchTickets = useCallback(async (queryParams) => {
     try {
       setLoading(true);
       queryParams && (await updateTickets(queryParams));
-      const { tickets, minPricesTickets, month } = await getTickets();
-      setData({ tickets, minPricesTickets, month });
+      const { tickets, minPricesTickets, month, journey } = queryParams
+        ? await updateTickets(queryParams)
+        : await getTickets();
+      setData({ tickets, minPricesTickets, month, journey });
       setLoading(false);
     } catch (error) {
       console.log(error);
